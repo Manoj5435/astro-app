@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrology Website</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            background-image: url('https://static.vecteezy.com/system/resources/previews/004/616/958/non_2x/zodiac-sign-wheel-of-fortune-astrology-concept-free-photo.jpg'); /* Replace with your image */
+            background-size: cover;
+            background-position: center;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .navbar a {
+            color: #f8d46a;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navbar a:hover {
+            color: #ffdd91;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            color: #ffdd91;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            color: #f8d46a;
+        }
+
+        /* Feature Cards */
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 50px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            margin: 20px;
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            color: #000000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+
+        /* Prediction Section */
+        .predictions {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .predictions h2 {
+            font-size: 2.5em;
+            color: #ffdd91;
+            margin-bottom: 20px;
+        }
+
+        .predictions p {
+            color: #f8d46a;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .load-predictions {
+            padding: 10px 20px;
+            background-color: #ffdd91;
+            border: none;
+            color: #121212;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 50px;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2em;
+            color: #ffdd91;
+            margin-bottom: 20px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .contact-form button, .whatsapp-button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #25d366; /* WhatsApp Green */
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .whatsapp-button {
+            background-color: #25d366;
+            color: #fff;
+        }
+
+        /* Astrology Animation */
+        @keyframes astro-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .astro-animation {
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #ffdd91;
+            animation: astro-rotate 8s infinite linear;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#predictions">Predictions</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Welcome to Your Astrology Portal</h1>
+        <p>Unlock the secrets of the stars</p>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="feature-card">
+            <h3>Daily Horoscope</h3>
+            <p>Get your personalized daily readings</p>
+        </div>
+        <div class="feature-card">
+            <h3>Jatak</h3>
+            <p>You can send your jatak on WhatsApp</p>
+        </div>
+        <div class="feature-card">
+            <h3>Birth Chart</h3>
+            <p>Analyze your birth chart for insights</p>
+        </div>
+        <div class="feature-card">
+            <h3>Jyotishashastra</h3>
+            <p>Contact us for Jyotishashastra</p>
+        </div>
+    </section>
+
+    <!-- Prediction Section -->
+    <section id="predictions" class="predictions">
+        <h2>Today's Predictions</h2>
+        <button class="load-predictions" onclick="loadPredictions()">Load Predictions</button>
+        <div id="prediction-list"></div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <form class="contact-form" onsubmit="return validateForm()">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <input type="number" id="number" placeholder="Your Number" required>
+            <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <a href="https://wa.me/9556515234" target="_blank">
+            <button class="whatsapp-button">Contact on WhatsApp</button>
+        </a>
+    </section>
+
+    <!-- Astrology Animation -->
+    <div class="astro-animation"></div>
+
+    <script>
+        // Smooth Scrolling for Navbar Links
+        document.querySelectorAll('.navbar a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic Prediction Loading
+   // Dynamic Prediction Loading
+function loadPredictions() {
+    const predictions = [
+        "Aries: Embrace change, and new opportunities will come.",
+        "Taurus: Patience is a virtue; good things are on their way.",
+        "Gemini: Take a chance, the stars are aligned in your favor.",
+        "Cancer: Emotional growth is on the horizon.",
+        "Leo: Show your strength and others will follow.",
+        "Virgo: Trust your instincts; they won’t steer you wrong.",
+        "Libra: Balance your energies, and harmony will find you.",
+        "Scorpio: Transformation is near; let go of the past.",
+        "Sagittarius: Adventure awaits; follow your heart's desires.",
+        "Capricorn: Hard work will pay off soon; stay determined.",
+        "Aquarius: Embrace your individuality; it is your strength.",
+        "Pisces: Creativity flows through you, let it guide your path.",
+        
+    ];
+    const predictionList = document.getElementById('prediction-list');
+    predictionList.innerHTML = predictions.map(prediction => `<p>${prediction}</p>`).join('');
+}
+
+
+        // Contact Form Validation
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !email || !message|| !number) {
+                alert("All fields are required!");
+                return false;
+            }
+            alert("Form submitted successfully!");
+            return true;
+        }
+    </script>
+
+</body>
+</html>
